@@ -10,9 +10,11 @@ exports.uploadFile = async (req, res) => {
 
     const newFile = new File({
       filename: req.file.filename,
+      originalName: req.file.originalname,
       path: req.file.path,
       size: req.file.size,
       privacy: req.body.privacy || "public",
+      uploadedBy: req.user.userId,
       uploadedAt: new Date(),
     });
 
@@ -42,6 +44,10 @@ exports.deleteFile = async (req, res) => {
 
     if (!file) {
       return res.status(404).json({ message: "File not found" });
+    }
+
+    if (file.uploadedBy.toString() !== req.user.userId) {
+      return res.status(403).json({ message: "Unauthorized to delete this file" });
     }
 
     await File.findByIdAndDelete(req.params.id);
