@@ -30,7 +30,8 @@ exports.uploadFile = async (req, res) => {
 // GET ALL FILES FOR LOGGED-IN USER
 exports.getMyFiles = async (req, res) => {
   try {
-    const files = await File.find();
+    const files = await File.find({uploadedBy:req.user.userId}) . sort({uploadedAt: -1});
+
     return res.json(files);
   } catch (err) {
     return res.status(500).json({ message: "Could not load files" });
