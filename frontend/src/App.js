@@ -3,6 +3,7 @@ import React from "react";
 import{BrowserRouter, Routes, Route} from "react-router-dom";
 
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
 import Register from "./pages/Rrgister";
@@ -18,9 +19,19 @@ function App() {
       <Route path="/" element={<Login/>}/>
       <Route path ="/login" element = {<Login/>}/>
       <Route path = "/register" element = {<Register/>} />
-      <Route path = "/upload" element = {<Upload />} />
       <Route path = "/downloads" element = {<Downloads/>} />
-      <Route path ="/myfiles" element = {<MyFiles/>} />
+
+      {/* Protected routes*/}
+      <Route path = "/upload" element = {<ProtectedRoute>
+        <Upload/>
+      </ProtectedRoute>
+      }
+      />
+      <Route path ="/myfiles" element = {<ProtectedRoute>
+        <MyFiles/>
+      </ProtectedRoute>
+      }
+      />
     </Routes>
     </BrowserRouter>
   );
