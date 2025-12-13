@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
-import Register from "./pages/Rrgister";
+import Register from "./pages/Register";
 import Upload from "./pages/Upload";
 import Downloads from "./pages/Downloads";
 import MyFiles from "./pages/MyFiles";

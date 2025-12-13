@@ -58,10 +58,11 @@ function MyFiles() {
 
               {/*Download link*/}
               <a
-              href={`http://localhost:5000/${file.path}`}
-                style={{ marginLeft: "10px" }} >
+                href={`http://localhost:5000/${file.path}`}
+                style={{ marginLeft: "10px" }}
+              >
                 download
-</a>
+              </a>
               {/* Delete button */}
               <button
                 style={{ marginLeft: "10px" }}
