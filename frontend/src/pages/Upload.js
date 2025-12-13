@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-// axios will be used for sending the file to the backend
+import axios from "axios";
 
 function Upload() {
-  // State to store the selected file from the input
+  //State to store the selected file
   const [file, setFile] = useState(null);
 
-  // This function runs when the upload form is submitted
+ //handle upload form submit
   const handleUpload = async (e) => {
     e.preventDefault();
-
+if(!file){
+  alert("Please select a file first");
+  return;
+}
     // create form data to send file
     const formData = new FormData();
     formData.append("file", file);
-    // privacy option will be added later
 
     try {
       // call backend upload API
@@ -34,9 +36,9 @@ function Upload() {
       alert("File uploaded successfully");
 
       // send user to their files page
-      window.location.href = "/myfile";
+      window.location.href = "/myfiles";
     } catch (err) {
-      console.log(err);
+      console.error(err);
       alert("File upload failed");
     }
   };
