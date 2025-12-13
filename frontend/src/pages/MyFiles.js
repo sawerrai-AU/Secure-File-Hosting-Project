@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import axios from "axios";
 function MyFiles() {
   // State to store files uploaded by the logged-in user
   const [files, setFiles] = useState([]);
@@ -20,7 +20,7 @@ function MyFiles() {
 
       setFiles(res.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       alert("Unable to load your files");
     }
   };
@@ -35,9 +35,9 @@ function MyFiles() {
       });
 
       // Reload files after delete
-      loadMyFiles();
+      setFiles(files.filter((file) => file._id !== id));
     } catch (err) {
-      console.log(err);
+      console.error(err);
       alert("Could not delete file");
     }
   };
@@ -56,6 +56,12 @@ function MyFiles() {
               {/* File name */}
               {file.originalName}
 
+              {/*Download link*/}
+              <a
+              href={`http://localhost:5000/${file.path}`}
+                style={{ marginLeft: "10px" }} >
+                download
+</a>
               {/* Delete button */}
               <button
                 style={{ marginLeft: "10px" }}
@@ -63,13 +69,6 @@ function MyFiles() {
               >
                 Delete
               </button>
-
-              <a
-                href={`http://localhost:3000/download/${file._id}`}
-                style={{ marginLeft: "10px" }}
-              >
-                Share
-              </a>
             </li>
           ))}
         </ul>
