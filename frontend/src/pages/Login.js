@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Login() {
-  // State to store the email entered by the user
+  // State to store form inputs
   const [email, setEmail] = useState("");
-
-  // This function runs when the login form is submitted
+const[password, setPassword] =useState(" ");
+  //Handle form submit
   const handleLogin = async (e) => {
     e.preventDefault(); // prevent the page from refreshing
 
@@ -12,16 +13,17 @@ function Login() {
       // Send the login request to the backend API
       const res = await axios.post("http://localhost:5000/api/login", {
         email: email,
+        password,
       });
 
-      // Save the token locally so the user stays logged in
-      localStorage.setItem("token", res.data.tokn);
+      //store JWT token
+      localStorage.setItem("token", res.data.token);
 
-      // Redirect the user to the dashboard page
-      window.location.href = "/dashbord";
+      // Redirect after successful login
+      window.location.href = "/upload";
     } catch (err) {
       // Log any errors in the console
-      console.log(err);
+      console.error(err);
 
       // Show a message if login does not work
       alert("Login failed");
@@ -38,12 +40,16 @@ function Login() {
         <input
           type="email"
           placeholder="Email"
+          value ={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <br />
 
         {/* Password input field */}
-        <input type="password" placeholder="Password" />
+        <input type="password" placeholder="Password" 
+        value={password}
+        />
         <br />
 
         {/* Button to submit the form */}
