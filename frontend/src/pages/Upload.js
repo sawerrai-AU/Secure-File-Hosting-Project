@@ -16,15 +16,19 @@ function Upload() {
 
     try {
       // call backend upload API
-      const res = await axios.post("http://localhost:5000/api/upload", formData, {
-        headers: {
-          // important for sending files
-          "Content-Type": "multipart/form-data",
+      const res = await axios.post(
+        "http://localhost:5000/api/upload",
+        formData,
+        {
+          headers: {
+            // important for sending files
+            "Content-Type": "multipart/form-data",
 
-          // attach token so backend knows the user
-          Authorization: "Bearer " + localStorage.getItem("token")
+            // attach token so backend knows the user
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
         }
-      });
+      );
 
       // show message if upload works
       alert("File uploaded successfully");
@@ -43,12 +47,8 @@ function Upload() {
 
       {/* Upload form */}
       <form onSubmit={handleUpload}>
-
         {/* Input for selecting a file */}
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-        />
+        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
         <br />
 
         {/* Upload button */}
